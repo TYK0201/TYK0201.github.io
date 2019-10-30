@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+  <head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta name="baidu-site-verification" content="vvVgSQUzPU">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="虎虎|博客|个人|utone|Utone|">
+    <meta name="description" content="骑士恨煎蛋，骑士恨孜然">
+    
+    <title>
+       SQL高级子查询 -  Hexo
+    </title>
+    <link rel="stylesheet" href="/css/style.css"> 
+    
+      <link rel="icon" href="/images/favicon.ico">
+    
+  </head>
+  <body>
+    <div id="container">
+      <div id="main-left">
+        <div id="introduce">
+          <div class="logo-worp">
+            <a href="/"><img class="logo" src="/images/logo.png" alt></a>
+          </div>
+          <ul>
+            
+              <li><a href="/"> Home </a></li>
+            
+              <li><a href="/archives"> Archive </a></li>
+            
+              <li><a href="/about"> About </a></li>
+            
+              <li><a href="/atom.xml"> RSS </a></li>
+            
+            <li>
+              <img id="search-img" src="/images/search.svg" alt="search">
+            </li>
+          </ul>
+           
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#1-简单子查询"><span class="post-toc-number">1.</span> <span class="post-toc-text">1.简单子查询</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#1-什么是子查询？"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">(1)什么是子查询？</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#2-子查询在WHERE语句中的一般用法："><span class="post-toc-number">1.2.</span> <span class="post-toc-text">(2)子查询在WHERE语句中的一般用法：</span></a></li></ol></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#2-高级子查询"><span class="post-toc-number">2.</span> <span class="post-toc-text">2. 高级子查询</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#1-EXISTS子查询"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">(1)EXISTS子查询</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#2-使用IN和NOT-IN的子查询"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">(2)使用IN和NOT IN的子查询</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#3-使用ALL-ANY-SOME的子查询"><span class="post-toc-number">2.3.</span> <span class="post-toc-text">(3)使用ALL,ANY/SOME的子查询</span></a></li></ol></li></ol> 
+          
+        </div>
+      </div>
+      <div id="main-right"><div id="post">
+    
+    <header class="article-header">
+        <h1>
+            SQL高级子查询
+        </h1>
+    </header>
+    
+    <div class="post-meta">
+        <time class="post-data" datetime="2019-10-30T11:38:23.482Z" itemprop="datePublished">
+            2019-10-30
+        </time>
+        
+        
+    </div>
+    
+    <div class="post-entry">
+        <h4 id="1-简单子查询"><a href="#1-简单子查询" class="headerlink" title="1.简单子查询"></a>1.简单子查询</h4><h5 id="1-什么是子查询？"><a href="#1-什么是子查询？" class="headerlink" title="(1)什么是子查询？"></a>(1)什么是子查询？</h5><p>所谓子查询，是指包含在一个INSERT、DELETE、UPDATE、SELECT命令中的SELECT查询。</p>
+<p>也可以理解为增删改查命令中嵌套着查询命令。</p>
+<h5 id="2-子查询在WHERE语句中的一般用法："><a href="#2-子查询在WHERE语句中的一般用法：" class="headerlink" title="(2)子查询在WHERE语句中的一般用法："></a>(2)子查询在WHERE语句中的一般用法：</h5><p>SELECT … FROM 表1 WHERE 字段1 &gt;(子查询)，外面的查询称为父查询，括号中嵌入的查询称为子查询 ，UPDATE、INSERT、DELETE一起使用，语法类似于SELECT语句</p>
+<p>将子查询和比较运算符联合使用，必须保证子查询返回的值不能多于一个；</p>
+<h4 id="2-高级子查询"><a href="#2-高级子查询" class="headerlink" title="2. 高级子查询"></a>2. 高级子查询</h4><h5 id="1-EXISTS子查询"><a href="#1-EXISTS子查询" class="headerlink" title="(1)EXISTS子查询"></a>(1)EXISTS子查询</h5><p>如果子查询的结果非空，即记录条数1条以上，则EXISTS （子查询）将返回真（true），否则返回假(false) ，EXISTS也可以作为WHERE 语句的子查询，但一般都能用IN子查询替换</p>
+<p>通过在子查询中使用EXISTS子句，可以对子查询中的行是否存在进行检查</p>
+<h5 id="2-使用IN和NOT-IN的子查询"><a href="#2-使用IN和NOT-IN的子查询" class="headerlink" title="(2)使用IN和NOT IN的子查询"></a>(2)使用IN和NOT IN的子查询</h5><p>1.IN子查询</p>
+<p>IN子查询后面可跟随返回多条记录的子查询，用于检测某列的值是否在某个范围；</p>
+<p>–使用IN后面的子查询可以返回多条记录。常用IN替换等于(=)的比较子查询 </p>
+<p>IN：在指定项内，同 IN(项1,项2,…)。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Select StudentName from Students where StudentId IN</span><br><span class="line">(Select StudentId from ScoreList where SQLServerDB&gt;80)</span><br></pre></td></tr></table></figure>
+
+<p>2.NOT IN 子查询</p>
+<p>–查询没有参加考试的学员、姓名？</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Select StudentName from Students where studentId not in</span><br><span class="line">(Select StudentId from ScoreList where SQLServerDB&gt;80)</span><br></pre></td></tr></table></figure>
+
+<p><strong>注意：</strong></p>
+<p>‘IN’ 是 ‘= ANY’ 的简写，’NOT IN’ 是 ‘&lt;&gt; ALL’ 的简写;</p>
+<h5 id="3-使用ALL-ANY-SOME的子查询"><a href="#3-使用ALL-ANY-SOME的子查询" class="headerlink" title="(3)使用ALL,ANY/SOME的子查询"></a>(3)使用ALL,ANY/SOME的子查询</h5><p>在使用子查询语句的过程中经常使用<code>ANY</code>、<code>SOME</code>、<code>ALL</code>（另外还有一个<code>IN</code>）关键字作为筛选条件。</p>
+<p><strong>ANY，SOME，ALL关键字的使用</strong></p>
+<p>1.ANY：与比较操作符联合使用，表示与子查询返回的任何值比较为 TRUE ，则返回 TRUE 。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT s1 FROM table1 WHERE s1 &gt; ANY (SELECT s2 FROM table2)</span><br></pre></td></tr></table></figure>
+
+<p> 2.ALL：与比较操作符联合使用，表示与子查询返回的所有值比较都为 TRUE ，则返回 TRUE 。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT s1 FROM table1 WHERE s1 &gt; ALL (SELECT s2 FROM table2)</span><br></pre></td></tr></table></figure>
+
+<p><strong>特殊情况:</strong></p>
+<p>如果 table2 为空表，则 ALL 后的结果为 TRUE；</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT s1 FROM table1 WHERE s1 &gt; (SELECT s2 FROM table2)SELECT s1 FROM table1 WHERE s1 &gt; ALL (SELECT MAX(s1) FROM table2)</span><br></pre></td></tr></table></figure>
+
+<p>3.SOME：ANY 的别名，较少使用。</p>
+
+    </div>
+    <!--畅言PC和WAP自适应版-->
+  
+</div></div>
+    </div>
+    <div id="footer">骑士恨煎蛋，骑士恨孜然</div>
+    <img id="top" src="/images/up-circle.svg" alt="top">
+    
+  </body>
+</html>
+<!-- 加载主题脚本文件 -->
+<script src="/scripts/utone.js"></script>
+
+<script type="text/javascript">
+  window.onload = function() {
+    scroll.init()
+    siteSearch.init()
+  }
+</script>
