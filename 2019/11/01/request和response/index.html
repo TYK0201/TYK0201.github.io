@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+  <head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta name="baidu-site-verification" content="vvVgSQUzPU">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="虎虎|博客|个人|utone|Utone|">
+    <meta name="description" content="骑士恨煎蛋，骑士恨孜然">
+    
+    <title>
+       request和response -  Hexo
+    </title>
+    <link rel="stylesheet" href="/css/style.css"> 
+    
+      <link rel="icon" href="/images/favicon.ico">
+    
+  </head>
+  <body>
+    <div id="container">
+      <div id="main-left">
+        <div id="introduce">
+          <div class="logo-worp">
+            <a href="/"><img class="logo" src="/images/logo.png" alt></a>
+          </div>
+          <ul>
+            
+              <li><a href="/"> Home </a></li>
+            
+              <li><a href="/archives"> Archive </a></li>
+            
+              <li><a href="/about"> About </a></li>
+            
+              <li><a href="/atom.xml"> RSS </a></li>
+            
+            <li>
+              <img id="search-img" src="/images/search.svg" alt="search">
+            </li>
+          </ul>
+           
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1-request对象"><span class="post-toc-number">1.</span> <span class="post-toc-text">1.request对象</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#2-response对象"><span class="post-toc-number">2.</span> <span class="post-toc-text">2.response对象</span></a></li></ol> 
+          
+        </div>
+      </div>
+      <div id="main-right"><div id="post">
+    
+    <header class="article-header">
+        <h1>
+            request和response
+        </h1>
+    </header>
+    
+    <div class="post-meta">
+        <time class="post-data" datetime="2019-11-01T03:27:54.433Z" itemprop="datePublished">
+            2019-11-01
+        </time>
+        
+        
+    </div>
+    
+    <div class="post-entry">
+        <h3 id="1-request对象"><a href="#1-request对象" class="headerlink" title="1.request对象"></a>1.request对象</h3><p>(1)request对象是http请求的代表</p>
+<p>requset对象是ServletRequset的一个实例。当客户端请求一个JPS网页时，JPS引擎会将客户的请求信息包装在这个request对象中。</p>
+<p>(2)request对象的方法</p>
+<p>request内置对象代表了客户端的请求信息，他的各个功能都封装在其他方法中。</p>
+<p>request对象方法：</p>
+<table>
+<thead>
+<tr>
+<th>getHeader(String name)</th>
+<th>获得http协议定义的传送文件头信息。</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>getHeaderNames()</td>
+<td>返回所有request header的名字，结果集是一个Enumeration(枚举)类的实例。</td>
+</tr>
+<tr>
+<td>getRemoteAddr()</td>
+<td>获得客户端的IP地址。</td>
+</tr>
+<tr>
+<td>isSecure()</td>
+<td>如果客户机是通过一个安全的访问方式访问的，就返回true，反之，返回false。</td>
+</tr>
+<tr>
+<td>getCookies()</td>
+<td>返回客户端的cookie对象，结果是一个cookie数组。</td>
+</tr>
+<tr>
+<td>getMethod()</td>
+<td>返回客户端向服务器端传送数据的方法，一般方法有get，post等类型。</td>
+</tr>
+<tr>
+<td>getParameter(String name)</td>
+<td>以字符串的形式返回客户端传来的某一个请求参数的值，该参数名由name指定。当传递给此方法的参数名没有实际参数与之对应时，返回null。</td>
+</tr>
+<tr>
+<td>getParameterNames()</td>
+<td>返回客户端传送给服务器端的所有参数名，结果集是Enumeration(枚举)类的实例。</td>
+</tr>
+</tbody></table>
+<h3 id="2-response对象"><a href="#2-response对象" class="headerlink" title="2.response对象"></a>2.response对象</h3><p>实例：</p>
+<p>用户登录页面</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&lt;%@ page language=<span class="string">"java"</span> <span class="keyword">import</span>=<span class="string">"java.util.*"</span> pageEncoding=<span class="string">"UTF-8"</span>%&gt;</span><br><span class="line">&lt;!DOCTYPE HTML PUBLIC <span class="string">"-//W3C//DTD HTML 4.01 Transitional//EN"</span>&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">  &lt;head&gt;</span><br><span class="line">    &lt;title&gt;用户登录&lt;/title&gt;</span><br><span class="line">  &lt;/head&gt;</span><br><span class="line">  </span><br><span class="line">  &lt;body&gt;</span><br><span class="line">		&lt;form name=<span class="string">"form1"</span> method=post action=<span class="string">"control.jsp"</span>&gt;</span><br><span class="line">			用户名：&lt;input type=<span class="string">"text"</span> name=<span class="string">"userName"</span>&gt;</span><br><span class="line">			密码：&lt;input type=<span class="string">"password"</span> name=<span class="string">"pwd"</span>&gt;</span><br><span class="line">			&lt;input type=<span class="string">"submit"</span> value=<span class="string">"登录"</span>&gt;</span><br><span class="line">		&lt;/form&gt;</span><br><span class="line">	&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+
+<p>登录处理页面</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&lt;%@ page language=<span class="string">"java"</span>  pageEncoding=<span class="string">"UTF-8"</span>%&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">	&lt;head&gt;</span><br><span class="line">		&lt;title&gt;登录处理页面&lt;/title&gt;</span><br><span class="line">	&lt;/head&gt;</span><br><span class="line">	&lt;body&gt;</span><br><span class="line">	&lt;%</span><br><span class="line">		request.setCharacterEncoding(<span class="string">"UTF-8"</span>);</span><br><span class="line">		<span class="comment">//request.getParameter("username")可以接受到表单传递的username参数，对应jsp表单的input的name是username的表单。</span></span><br><span class="line">		String name = request.getParameter(<span class="string">"userName"</span>);</span><br><span class="line">		<span class="comment">//request.getParameter("password")可以接受到表单传递的password参数，对应jsp表单的input的name是password的表单。</span></span><br><span class="line">		String pwd = request.getParameter(<span class="string">"pwd"</span>);</span><br><span class="line">        </span><br><span class="line">		<span class="keyword">if</span>(<span class="string">"sa"</span>.equals(name)&amp;&amp;<span class="string">"sa"</span>.equals(pwd))&#123;</span><br><span class="line">	 		response.sendRedirect(<span class="string">"welcome.jsp"</span>);</span><br><span class="line">		&#125; </span><br><span class="line">	%&gt;</span><br><span class="line">	&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+
+<p>欢迎页面</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;%@ page language=<span class="string">"java"</span> pageEncoding=<span class="string">"UTF-8"</span>%&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">	&lt;head&gt;</span><br><span class="line">		&lt;title&gt;欢迎页面&lt;/title&gt;</span><br><span class="line">	&lt;/head&gt;</span><br><span class="line">	&lt;body&gt;</span><br><span class="line">		欢迎进入本页面！</span><br><span class="line">	&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+
+
+    </div>
+    <!--畅言PC和WAP自适应版-->
+  
+</div></div>
+    </div>
+    <div id="footer">骑士恨煎蛋，骑士恨孜然</div>
+    <img id="top" src="/images/up-circle.svg" alt="top">
+    
+  </body>
+</html>
+<!-- 加载主题脚本文件 -->
+<script src="/scripts/utone.js"></script>
+
+<script type="text/javascript">
+  window.onload = function() {
+    scroll.init()
+    siteSearch.init()
+  }
+</script>
