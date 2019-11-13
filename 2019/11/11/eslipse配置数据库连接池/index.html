@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+  <head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta name="baidu-site-verification" content="vvVgSQUzPU">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="虎虎|博客|个人|utone|Utone|">
+    <meta name="description" content="骑士恨煎蛋，骑士恨孜然">
+    
+    <title>
+       eslipse配置数据库连接池 -  Hexo
+    </title>
+    <link rel="stylesheet" href="/css/style.css"> 
+    
+      <link rel="icon" href="/images/favicon.ico">
+    
+  </head>
+  <body>
+    <div id="container">
+      <div id="main-left">
+        <div id="introduce">
+          <div class="logo-worp">
+            <a href="/"><img class="logo" src="/images/logo.png" alt></a>
+          </div>
+          <ul>
+            
+              <li><a href="/"> Home </a></li>
+            
+              <li><a href="/archives"> Archive </a></li>
+            
+              <li><a href="/about"> About </a></li>
+            
+              <li><a href="/atom.xml"> RSS </a></li>
+            
+            <li>
+              <img id="search-img" src="/images/search.svg" alt="search">
+            </li>
+          </ul>
+           
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#1-添加jar包"><span class="post-toc-number">1.</span> <span class="post-toc-text">1.添加jar包</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#2-在context文件中添加"><span class="post-toc-number">2.</span> <span class="post-toc-text">2.在context文件中添加</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#3-通过JNDI资源链接"><span class="post-toc-number">3.</span> <span class="post-toc-text">3.通过JNDI资源链接</span></a></li></ol> 
+          
+        </div>
+      </div>
+      <div id="main-right"><div id="post">
+    
+    <header class="article-header">
+        <h1>
+            eslipse配置数据库连接池
+        </h1>
+    </header>
+    
+    <div class="post-meta">
+        <time class="post-data" datetime="2019-11-10T16:36:13.000Z" itemprop="datePublished">
+            2019-11-11
+        </time>
+        
+        
+    </div>
+    
+    <div class="post-entry">
+        <p>Tomcat6的服务器配置文件放在 ${tomcat6}/conf 目录底下。我们可以在这里找到 server.xml 和 context.xml。当然，还有其他一些资源文件。但是在在本文中我们只用得上这两个，其他的就不介绍了。 </p>
+<h2 id="1-添加jar包"><a href="#1-添加jar包" class="headerlink" title="1.添加jar包"></a>1.添加jar包</h2><p>首先，将数据库的驱动程序copy到tomcat8.0\lib下，这一部是关键，如果没有copy 当运行程序的时候后报-找不到驱动-的异常。</p>
+<h2 id="2-在context文件中添加"><a href="#2-在context文件中添加" class="headerlink" title="2.在context文件中添加"></a>2.在context文件中添加</h2><p>将下面的代码放到Tomcat 8.0\conf\context.xml中间，如：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&lt;Context reloadable=<span class="string">"true"</span>&gt;</span><br><span class="line">&lt;Resource </span><br><span class="line">name=<span class="string">"jdbc/数据库名"</span></span><br><span class="line">type=<span class="string">"javax.sql.DataSource"</span></span><br><span class="line">maxActive=<span class="string">"100"</span></span><br><span class="line">maxIdle=<span class="string">"30"</span> </span><br><span class="line">maxWait=<span class="string">"5000"</span></span><br><span class="line">username=<span class="string">"用户名"</span></span><br><span class="line">password=<span class="string">"密码"</span></span><br><span class="line">driverClassName=<span class="string">"数据库的驱动"</span></span><br><span class="line">url=<span class="string">"数据库的连接地址"</span> /&gt;</span><br><span class="line">&lt;/Context&gt;</span><br></pre></td></tr></table></figure>
+
+<p>也可以在项目root下的WEB-INF下新建context.xml进行配置</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=<span class="string">"1.0"</span> encoding=<span class="string">"UTF-8"</span>?&gt;</span><br><span class="line"></span><br><span class="line">&lt;Context&gt;<span class="comment">/////直连 </span></span><br><span class="line">&lt;Resource </span><br><span class="line">name=<span class="string">"jdbc/book"</span> </span><br><span class="line">type=<span class="string">"javax.sql.DataSource"</span> </span><br><span class="line">password=<span class="string">""</span></span><br><span class="line">driverClassName=<span class="string">"com.microsoft.jdbc.sqlserver.SQLServerDriver"</span></span><br><span class="line">maxIdle=<span class="string">"5"</span> </span><br><span class="line">maxWait=<span class="string">"5000"</span></span><br><span class="line">username=<span class="string">"sa"</span> </span><br><span class="line">url=<span class="string">"jdbc:microsoft:sqlserver://localhost:1433;databaseName=book"</span><span class="comment">////直连数据源 maxActive="10"/&gt; </span></span><br><span class="line">&lt;/Context&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="3-通过JNDI资源链接"><a href="#3-通过JNDI资源链接" class="headerlink" title="3.通过JNDI资源链接"></a>3.通过JNDI资源链接</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">InitialContext initCtx = <span class="keyword">new</span> InitialContext();</span><br><span class="line">DataSource ds = (DataSource)initCtx.lookup(<span class="string">"java:comp/env/jdbc/数据库名"</span>);</span><br><span class="line">Connection conn = ds.getConnection();</span><br></pre></td></tr></table></figure>
+
+
+    </div>
+    <!--畅言PC和WAP自适应版-->
+  
+</div></div>
+    </div>
+    <div id="footer">骑士恨煎蛋，骑士恨孜然</div>
+    <img id="top" src="/images/up-circle.svg" alt="top">
+    
+  </body>
+</html>
+<!-- 加载主题脚本文件 -->
+<script src="/scripts/utone.js"></script>
+
+<script type="text/javascript">
+  window.onload = function() {
+    scroll.init()
+    siteSearch.init()
+  }
+</script>
